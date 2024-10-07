@@ -113,8 +113,12 @@ body {
 .slide_items_img {
   width: 100%;
   height: 100%;
-
   object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+}
+
+.slide_items_img:hover {
+  transform: scale(1.2);
 }
 
 @keyframes slide {
