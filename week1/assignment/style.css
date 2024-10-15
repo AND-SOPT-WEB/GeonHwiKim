@@ -69,7 +69,7 @@ body {
   color: #4f75ff;
 }
 
-.main_sub button {
+.main_sub a {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -81,9 +81,10 @@ body {
   color: white;
   cursor: pointer;
   transition: transform 0.5s ease;
+  text-decoration-line: none;
 }
 
-.main_sub button:hover {
+.main_sub a:hover {
   background-color: #31657a;
   transform: rotate(360deg);
 }
