@@ -2,6 +2,7 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-COmpatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>회원 관리 페이지</title>
     <link rel="stylesheet" href="./css/style.css" />
@@ -17,68 +18,78 @@
       <h1>회원 관리 페이지</h1>
       <p>🌊물결 웨비🌊</p>
     </header>
-    <section class="input-section">
-      <form class="search-form">
-        <div class="name-group">
-          <label class="name-group_label" for="name">이름</label>
-          <input class="name-group_input" type="text" id="name" placeholder="이름을 입력하세요" />
-        </div>
-        <div class="name-group">
-          <label class="name-group_label for="englishName">영문이름</label>
+    <section class="filter-container">
+      <div class="grid-item">
+        <label for="name-filter">이름</label>
+        <input type="text" id="name-filter" placeholder="이름을 입력하세요" />
+      </div>
+
+      <div class="grid-item">
+        <label for="eng-name-filter">영문이름</label>
+        <input
+          type="text"
+          id="eng-name-filter"
+          placeholder="영문이름을 입력하세요"
+        />
+      </div>
+
+      <div class="grid-third-row">
+        <div class="grid-item">
+          <label for="github-filter">GitHub</label>
           <input
-            class="name-group_input"
             type="text"
-            id="englishName"
-            placeholder="영문이름을 입력하세요"
+            id="github-filter"
+            placeholder="GitHub ID를 입력하세요"
           />
         </div>
-        <div class="form-group__top">
-            <div class="form-group">
-                <label class="form-group_label" for="github">GitHub</label>
-                <input class="form-group_input" type="text" id="github" placeholder="GitHub ID를 입력하세요" />
-            </div>
-            <div class="form-group">
-                <label class="form-group_label" for="gender">성별</label>
-                <select class="form-group_select" id="gender">
-                  <option value="">성별 선택</option>
-                  <option value="남자">남자</option>
-                  <option value="여자">여자</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="form-group_label" for="role">역할</label>
-                <select class="form-group_select" id="role">
-                  <option value="">OB / YB 선택</option>
-                  <option value="OB">OB</option>
-                  <option value="YB">YB</option>
-                </select>
-            </div>
+
+        <div class="grid-item">
+          <label for="gender-filter">성별</label>
+          <select id="gender-filter">
+            <option value="">성별 선택</option>
+            <option value="남자">남자</option>
+            <option value="여자">여자</option>
+          </select>
         </div>
-        <div class="form-group__bottom">
-            <div class="form-group">
-                <label class="form-group__bottom_label" for="week1">1주차 금잔디조</label>
-                <input
-                class="form-group__bottom_input"
-                  type="number"
-                  id="week1"
-                  placeholder="1주차 금잔디조를 입력하세요 (1~9)"
-                />
-              </div>
-              <div class="form-group">
-                <label class="form-group__bottom_label" for="week2">2주차 금잔디조</label>
-                <input
-                class="form-group__bottom_input"
-                  type="number"
-                  id="week2"
-                  placeholder="2주차 금잔디조를 입력하세요 (1~9)"
-                />
-              </div>
+
+        <div class="grid-item">
+          <label for="role-filter">역할</label>
+          <select id="role-filter">
+            <option value="">OB / YB 선택</option>
+            <option value="OB">OB</option>
+            <option value="YB">YB</option>
+          </select>
         </div>
-        <div class="form-button_div">
-          <button class="form-button" type="reset" class="reset-btn">초기화</button>
-          <button class="form-button" type="submit" class="search-btn">검색</button>
+      </div>
+
+      <div class="grid-fourth-row">
+        <div class="grid-item">
+          <label for="week1-filter">1주차 금잔디</label>
+          <input
+            type="number"
+            id="week1-filter"
+            placeholder="1주차 금잔디점수 입력 (1~9)"
+            min="1"
+            max="9"
+          />
         </div>
-      </form>
+
+        <div class="grid-item">
+          <label for="week2-filter">2주차 금잔디</label>
+          <input
+            type="number"
+            id="week2-filter"
+            placeholder="2주차 금잔디점수 입력 (1~9)"
+            min="1"
+            max="9"
+          />
+        </div>
+      </div>
+
+      <div class="button-container">
+        <button class="reset-button">초기화</button>
+        <button class="search-button">검색</button>
+      </div>
     </section>
   </body>
 </html>
