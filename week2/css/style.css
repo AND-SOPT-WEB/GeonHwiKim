@@ -43,6 +43,7 @@ body {
   width: 70%;
   padding: 20px;
   border-radius: 5px;
+  margin-bottom: 5rem;
 }
 
 .grid-third-row {
@@ -78,29 +79,69 @@ select {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.button-container {
+.btn-container {
   display: flex;
   justify-content: space-between;
 }
 
-button {
+.btn-container button {
   width: 49%;
   padding: 1rem;
   border: none;
   border-radius: 5px;
   color: white;
-  font-weight: bold;
   cursor: pointer;
 }
 
-.reset-button {
-  background-color: #a594f9;
+.reset-btn,
+.delete-btn {
+  background-color: #615efc;
 }
 
-.search-button {
-  background-color: #7c00fe;
+.search-btn,
+.add-btn {
+  background-color: #7695ff;
 }
 
 button:hover {
-  background-color: #b1b2ff;
+  background-color: #9dbdff;
+}
+
+.table-section {
+  width: 70%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.table-btn {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.table-btn button {
+  width: 15%;
+  padding: 1rem;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  border: 1px solid #4b70f5;
+  padding: 10px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+thead {
+  background-color: #87a2ff;
 }
