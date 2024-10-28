@@ -113,6 +113,46 @@
         <tbody></tbody>
       </table>
     </section>
+
+    <!-- Modal -->
+    <div id="add-modal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>새 멤버 추가</h2>
+        <form id="add-form">
+          <p>이름</p>
+          <input type="text" id="name" placeholder="이름을 입력하세요" />
+
+          <p>영문이름</p>
+          <input type="text" id="engName" placeholder="영문이름을 입력하세요" />
+
+          <p>GitHub ID</p>
+          <input type="text" id="github" placeholder="GitHub ID를 입력하세요" />
+
+          <p>성별</p>
+          <select id="gender">
+            <option value="">성별 선택</option>
+            <option value="남자">남자</option>
+            <option value="여자">여자</option>
+          </select>
+
+          <p>역할</p>
+          <select id="role">
+            <option value="">OB / YB 선택</option>
+            <option value="OB">OB</option>
+            <option value="YB">YB</option>
+          </select>
+
+          <p>1주차 금잔디</p>
+          <input type="number" id="week1" min="1" max="9" placeholder="1~9" />
+
+          <p>2주차 금잔디</p>
+          <input type="number" id="week2" min="1" max="9" placeholder="1~9" />
+
+          <button type="submit" class="submit-btn">추가</button>
+        </form>
+      </div>
+    </div>
   </body>
   <script type="module" src="./index.js"></script>
 </html>
