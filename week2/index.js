@@ -7,6 +7,7 @@ import {
 } from "./modules/checkboxHandlers.js";
 import { setupModalHandlers, closeModal } from "./modules/modalHandlers.js";
 import { setupFormHandler } from "./modules/formHandlers.js";
+import { deleteCheckedRows } from "./modules/deleteHandler.js";
 
 if (!localStorage.getItem("infoData")) {
   localStorage.setItem("infoData", JSON.stringify(InfoData));
@@ -19,6 +20,7 @@ const addBtn = document.querySelector(".add-btn");
 const modal = document.getElementById("add-modal");
 const closeBtn = document.querySelector(".close-btn");
 const addForm = document.getElementById("add-form");
+const deleteBtn = document.querySelector(".delete-btn"); // 선택삭제 버튼
 
 renderTable(data, tbody);
 handleResetBtn(data, tbody);
@@ -27,5 +29,8 @@ handleCheckAll(checkAll, tbody);
 handleRowCheckboxChange(checkAll, tbody);
 
 setupModalHandlers(modal, addBtn, closeBtn);
-
 setupFormHandler(addForm, data, tbody, () => closeModal(modal), renderTable);
+
+deleteBtn.addEventListener("click", () => {
+  deleteCheckedRows(data, tbody, renderTable);
+});
