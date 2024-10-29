@@ -20,7 +20,7 @@ const addBtn = document.querySelector(".add-btn");
 const modal = document.getElementById("add-modal");
 const closeBtn = document.querySelector(".close-btn");
 const addForm = document.getElementById("add-form");
-const deleteBtn = document.querySelector(".delete-btn"); // 선택삭제 버튼
+const deleteBtn = document.querySelector(".delete-btn");
 
 renderTable(data, tbody);
 handleResetBtn(data, tbody);

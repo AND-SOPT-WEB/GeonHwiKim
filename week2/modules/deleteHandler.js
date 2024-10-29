@@ -5,7 +5,7 @@ export function deleteCheckedRows(data, tbody, renderTable) {
 
   const rowsToDelete = Array.from(rowCheckboxes).map((checkbox) => {
     const row = checkbox.closest("tr");
-    return Array.from(tbody.children).indexOf(row); // tbody 내의 행 인덱스
+    return Array.from(tbody.children).indexOf(row);
   });
 
   rowsToDelete.reverse().forEach((index) => {
