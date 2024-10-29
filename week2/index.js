@@ -6,7 +6,7 @@ import {
   handleRowCheckboxChange,
 } from "./modules/checkboxHandlers.js";
 import { setupModalHandlers, closeModal } from "./modules/modalHandlers.js";
-import { setupFormHandler } from "./modules/formHandlers.js";
+import { setupFormHandler } from "./modules/modalFormHandlers.js";
 import { deleteCheckedRows } from "./modules/deleteHandler.js";
 
 if (!localStorage.getItem("infoData")) {

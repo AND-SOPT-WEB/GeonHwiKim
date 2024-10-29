@@ -124,7 +124,11 @@
           <input type="text" id="name" placeholder="이름을 입력하세요" />
 
           <p>영문이름</p>
-          <input type="text" id="engName" placeholder="영문이름을 입력하세요" />
+          <input
+            type="text"
+            id="englishName"
+            placeholder="영문이름을 입력하세요"
+          />
 
           <p>GitHub ID</p>
           <input type="text" id="github" placeholder="GitHub ID를 입력하세요" />
@@ -132,8 +136,8 @@
           <p>성별</p>
           <select id="gender">
             <option value="">성별 선택</option>
-            <option value="남자">남자</option>
-            <option value="여자">여자</option>
+            <option value="male">남자</option>
+            <option value="female">여자</option>
           </select>
 
           <p>역할</p>
@@ -144,10 +148,16 @@
           </select>
 
           <p>1주차 금잔디</p>
-          <input type="number" id="week1" min="1" max="9" placeholder="1~9" />
+          <input
+            type="number"
+            id="firstWeekGroup"
+            min="1"
+            max="9"
+            placeholder="1~9"
+          />
 
           <p>2주차 금잔디</p>
-          <input type="number" id="week2" min="1" max="9" placeholder="1~9" />
+          <input type="number" id="secondWeekGroup" min="1" max="9" placeholder="1~9" />
 
           <button type="submit" class="submit-btn">추가</button>
         </form>
