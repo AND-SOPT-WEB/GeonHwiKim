@@ -1,18 +1,19 @@
-export function deleteCheckedRows(data, tbody, renderTable) {
+export function deleteCheckedRows(tbody, renderTable) {
   const rowCheckboxes = tbody.querySelectorAll(
     'input[type="checkbox"]:checked'
   );
 
-  const rowsToDelete = Array.from(rowCheckboxes).map((checkbox) => {
-    const row = checkbox.closest("tr");
-    return Array.from(tbody.children).indexOf(row);
-  });
+  const idsToDelete = Array.from(rowCheckboxes).map((checkbox) =>
+    parseInt(checkbox.dataset.id, 10)
+  );
 
-  rowsToDelete.reverse().forEach((index) => {
-    data.splice(index, 1);
-  });
+  const latestData = JSON.parse(localStorage.getItem("infoData")) || [];
 
-  localStorage.setItem("infoData", JSON.stringify(data));
+  const updatedData = latestData.filter(
+    (item) => !idsToDelete.includes(item.id)
+  );
 
-  renderTable(data, tbody);
+  localStorage.setItem("infoData", JSON.stringify(updatedData));
+
+  renderTable(updatedData, tbody);
 }

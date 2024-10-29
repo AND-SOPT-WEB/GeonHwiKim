@@ -39,6 +39,7 @@ function isFormValid() {
 
 function createNewMember() {
   return {
+    id: Date.now(),
     name: document.getElementById("name").value,
     englishName: document.getElementById("englishName").value,
     github: document.getElementById("github").value,

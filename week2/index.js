@@ -32,5 +32,5 @@ setupModalHandlers(modal, addBtn, closeBtn);
 setupFormHandler(addForm, data, tbody, () => closeModal(modal), renderTable);
 
 deleteBtn.addEventListener("click", () => {
-  deleteCheckedRows(data, tbody, renderTable);
+  deleteCheckedRows(tbody, renderTable);
 });
