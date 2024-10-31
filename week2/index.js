@@ -23,8 +23,8 @@ const addForm = document.getElementById("add-form");
 const deleteBtn = document.querySelector(".delete-btn");
 
 renderTable(data, tbody);
-handleResetBtn(data, tbody);
-handleSearchBtn(data, tbody);
+handleResetBtn(data, tbody, checkAll);
+handleSearchBtn(data, tbody, checkAll);
 handleCheckAll(checkAll, tbody);
 handleRowCheckboxChange(checkAll, tbody);
 
