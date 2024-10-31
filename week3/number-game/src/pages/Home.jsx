@@ -1,3 +1,5 @@
+import HomeHeader from "../components/Home/HomeHeader";
+
 export const Home = () => {
-  return <div>Home</div>;
+  return <HomeHeader />;
 };
