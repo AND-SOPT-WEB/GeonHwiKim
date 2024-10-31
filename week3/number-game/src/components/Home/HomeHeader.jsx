@@ -24,16 +24,18 @@ const HomeHeader = () => {
           </ToggleButton>
         </ToggleWrapper>
       </HomeHeaderLeft>
-      <HomeHeaderRight>
-        <SelectedLevel>
-          <select value={level} onChange={(e) => setLevel(e.target.value)}>
-            <option value="level1">Level1</option>
-            <option value="level2">Level2</option>
-            <option value="level3">Level3</option>
-          </select>
-        </SelectedLevel>
-        <Time>0</Time>
-      </HomeHeaderRight>
+      {selected === "game" && (
+        <HomeHeaderRight>
+          <SelectedLevel>
+            <select value={level} onChange={(e) => setLevel(e.target.value)}>
+              <option value="level1">level1</option>
+              <option value="level2">level2</option>
+              <option value="level3">level3</option>
+            </select>
+          </SelectedLevel>
+          <Time>0</Time>
+        </HomeHeaderRight>
+      )}
     </HomeHeaderWrapper>
   );
 };
