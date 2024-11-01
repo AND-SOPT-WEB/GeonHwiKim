@@ -3,6 +3,9 @@ const colors = {
   orange2: "rgba(209, 68, 7, 0.24)",
   orange3: "#FFE5D9",
   orange4: "#AA4623",
+  orange5: "#FFB26F",
+  orange6: "#DE8F5F",
+  orange7: "#FFB38E",
 
   white1: "#FFFFFF",
   white2: "#DEDEDE",

@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-const HomeHeader = () => {
-  const [selected, setSelected] = useState("game");
+const HomeHeader = ({ selected, onSelect }) => {
   const [level, setLevel] = useState("Level1");
 
   return (
@@ -12,13 +11,13 @@ const HomeHeader = () => {
         <ToggleWrapper>
           <ToggleButton
             selected={selected === "game"}
-            onClick={() => setSelected("game")}
+            onClick={() => onSelect("game")}
           >
             게임
           </ToggleButton>
           <ToggleButton
             selected={selected === "ranking"}
-            onClick={() => setSelected("ranking")}
+            onClick={() => onSelect("ranking")}
           >
             랭킹
           </ToggleButton>
