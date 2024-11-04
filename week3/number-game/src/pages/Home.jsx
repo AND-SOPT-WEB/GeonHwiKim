@@ -4,10 +4,12 @@ import styled from "styled-components";
 import { useState } from "react";
 import GameBoard from "../components/Home/GameBoard/GameBoard";
 import { getGameBoardProps } from "../utils/gameBoardUtils";
+import { useTimer } from "../hooks/useTimer";
 
 export const Home = () => {
   const [selected, setSelected] = useState("game");
   const [level, setLevel] = useState("level1");
+  const { time, startTimer, stopTimer, resetTimer, formatTime } = useTimer();
 
   const handleSelect = (selection) => {
     setSelected(selection);
@@ -15,9 +17,8 @@ export const Home = () => {
 
   const handleLevelChange = (newLevel) => {
     setLevel(newLevel);
+    resetTimer();
   };
-
-  const gameBoardProps = getGameBoardProps(level);
 
   return (
     <HomePageWrapper>
@@ -26,10 +27,20 @@ export const Home = () => {
         onSelect={handleSelect}
         level={level}
         onLevelChange={handleLevelChange}
+        time={formatTime(time)}
       />
       <HomeBody>{selected === "ranking" && <RankingBoard />}</HomeBody>
       <HomeBody>
-        {selected === "game" && <GameBoard key={level} {...gameBoardProps} />}
+        {selected === "game" && (
+          <GameBoard
+            key={level}
+            currentTime={formatTime(time)}
+            onFirstClick={startTimer}
+            onLastClick={stopTimer}
+            onReset={resetTimer}
+            {...getGameBoardProps(level)}
+          />
+        )}
       </HomeBody>
     </HomePageWrapper>
   );

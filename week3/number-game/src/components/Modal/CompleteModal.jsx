@@ -1,11 +1,11 @@
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 
-const CompleteModal = ({ onClose }) => {
+const CompleteModal = ({ onClose, finalTime }) => {
   return ReactDOM.createPortal(
     <Overlay>
       <Modal>
-        <Message>게임 기록: </Message>
+        <Message>게임 기록: {finalTime}</Message>
         <CloseButton onClick={onClose}>닫기</CloseButton>
       </Modal>
     </Overlay>,

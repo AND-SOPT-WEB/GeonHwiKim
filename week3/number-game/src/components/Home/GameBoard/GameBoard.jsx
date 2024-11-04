@@ -15,7 +15,15 @@ const generateShuffledNumbers = (start, count) => {
   return shuffleNumbers(numbers);
 };
 
-const GameBoard = ({ initialLength, remainingLength, gridLength }) => {
+const GameBoard = ({
+  initialLength,
+  remainingLength,
+  gridLength,
+  onFirstClick,
+  onLastClick,
+  onReset,
+  currentTime,
+}) => {
   const [initialNums, setInitialnums] = useState(() =>
     generateShuffledNumbers(1, initialLength)
   );
@@ -25,16 +33,6 @@ const GameBoard = ({ initialLength, remainingLength, gridLength }) => {
   const [currentNumber, setCurrentNumber] = useState(1);
   const [gameComplete, setGameComplete] = useState(false);
   const [clickedIndexes, setClickedIndexes] = useState(new Set());
-
-  const resetGame = () => {
-    setInitialnums(generateShuffledNumbers(1, initialLength));
-    setUpcomingNums(
-      generateShuffledNumbers(initialLength + 1, remainingLength)
-    );
-    setCurrentNumber(1);
-    setGameComplete(false);
-    setClickedIndexes(new Set());
-  };
 
   const handleInitialNumClick = (index) => {
     const [next, ...rest] = upcomingNums;
@@ -49,9 +47,26 @@ const GameBoard = ({ initialLength, remainingLength, gridLength }) => {
     setCurrentNumber((prev) => prev + 1);
   };
 
+  const resetGame = () => {
+    setInitialnums(generateShuffledNumbers(1, initialLength));
+    setUpcomingNums(
+      generateShuffledNumbers(initialLength + 1, remainingLength)
+    );
+    setCurrentNumber(1);
+    setGameComplete(false);
+    setClickedIndexes(new Set());
+    onReset();
+  };
+
   const handleNumberClick = (number, index) => {
     if (number !== currentNumber) return;
+
+    if (currentNumber === 1) {
+      onFirstClick();
+    }
+
     if (currentNumber === initialLength + remainingLength) {
+      onLastClick();
       setGameComplete(true);
       return;
     }
@@ -86,7 +101,9 @@ const GameBoard = ({ initialLength, remainingLength, gridLength }) => {
           )
         )}
       </GameBox>
-      {gameComplete && <CompleteModal onClose={handleCloseModal} />}
+      {gameComplete && (
+        <CompleteModal onClose={handleCloseModal} finalTime={currentTime} />
+      )}
     </GameContainer>
   );
 };

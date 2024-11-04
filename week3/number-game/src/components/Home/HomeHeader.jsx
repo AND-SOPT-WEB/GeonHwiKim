@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const HomeHeader = ({ selected, onSelect, level, onLevelChange }) => {
+const HomeHeader = ({ selected, onSelect, level, onLevelChange, time }) => {
   return (
     <HomeHeaderWrapper>
       <HomeHeaderLeft>
@@ -32,7 +32,7 @@ const HomeHeader = ({ selected, onSelect, level, onLevelChange }) => {
               <option value="level3">level3</option>
             </select>
           </SelectedLevel>
-          <Time>0</Time>
+          <Time>{time}</Time>
         </HomeHeaderRight>
       )}
     </HomeHeaderWrapper>
@@ -92,6 +92,7 @@ const ToggleButton = styled.button`
 
 const HomeHeaderRight = styled.div`
   display: flex;
+  width: 20rem;
   align-items: center;
   gap: 3rem;
 `;
