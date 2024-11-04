@@ -85,7 +85,7 @@ const GameBoard = ({
   return (
     <GameContainer>
       <NextNumber>다음 숫자: {currentNumber}</NextNumber>
-      <GameBox length={gridLength}>
+      <GameBox $gridLength={gridLength}>
         {initialNums.map((number, index) =>
           number !== null ? (
             <NumberButton
@@ -125,12 +125,14 @@ const NextNumber = styled.div`
 
 const GameBox = styled.div`
   display: grid;
-  grid-template-columns: repeat(${(props) => props.length}, 1fr);
+  grid-template-columns: repeat(${(props) => props.$gridLength}, 1fr);
   gap: 1rem;
   padding: 2rem;
 `;
 
-const NumberButton = styled.button`
+const NumberButton = styled.button.withConfig({
+  shouldForwardProp: (prop) => prop !== "isClicked",
+})`
   width: 10rem;
   height: 10rem;
   font-size: 3rem;
