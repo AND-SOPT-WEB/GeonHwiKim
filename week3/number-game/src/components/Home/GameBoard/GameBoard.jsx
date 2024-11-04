@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import CompleteModal from "../../Modal/CompleteModal";
 
 const generateNumbers = (start, count) => {
@@ -130,6 +130,11 @@ const GameBox = styled.div`
   padding: 2rem;
 `;
 
+const blink = keyframes`
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+`;
+
 const NumberButton = styled.button.withConfig({
   shouldForwardProp: (prop) => prop !== "isClicked",
 })`
@@ -141,6 +146,11 @@ const NumberButton = styled.button.withConfig({
   background-color: ${({ isClicked, theme }) =>
     isClicked ? theme.colors.thumnail : theme.colors.orange1};
   transition: background-color 0.5s;
+  ${({ isClicked }) =>
+    isClicked &&
+    css`
+      animation: ${blink} 0.3s;
+    `}
 `;
 
 const EmptySpace = styled.div`
