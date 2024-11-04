@@ -1,18 +1,41 @@
+import { useState } from "react";
 import styled from "styled-components";
+import { sortRanking } from "../../utils/sortRanking";
 
 const RankingBoard = () => {
+  const [rankings, setRankings] = useState(() => {
+    const storedData = JSON.parse(localStorage.getItem("gameData")) || [];
+    return sortRanking(storedData);
+  });
+
+  const handleReset = () => {
+    localStorage.removeItem("gameData");
+    setRankings([]);
+  };
+
   return (
     <RankingBoardWrapper>
       <RankingHeader>
         <Title>랭킹</Title>
-        <ResetButton>초기화</ResetButton>
+        <ResetButton onClick={handleReset}>초기화</ResetButton>
       </RankingHeader>
       <RankingTable>
-        <TableRow>
-          <TableHeader>타임스탬프</TableHeader>
-          <TableHeader>레벨</TableHeader>
-          <TableHeader>플레이 시간</TableHeader>
-        </TableRow>
+        <thead>
+          <TableRow>
+            <TableHeader>타임스탬프</TableHeader>
+            <TableHeader>레벨</TableHeader>
+            <TableHeader>플레이 시간</TableHeader>
+          </TableRow>
+        </thead>
+        <tbody>
+          {rankings.map((record, index) => (
+            <TableRow key={index}>
+              <TableData>{record.currentTime}</TableData>
+              <TableData>{record.level}</TableData>
+              <TableData>{record.playTime}</TableData>
+            </TableRow>
+          ))}
+        </tbody>
       </RankingTable>
     </RankingBoardWrapper>
   );
@@ -20,7 +43,7 @@ const RankingBoard = () => {
 
 export default RankingBoard;
 
-const RankingBoardWrapper = styled.div`
+const RankingBoardWrapper = styled.section`
   display: flex;
   flex-direction: column;
   width: 100rem;
@@ -31,11 +54,11 @@ const RankingBoardWrapper = styled.div`
   gap: 2rem;
 `;
 
-const RankingHeader = styled.div`
+const RankingHeader = styled.header`
   display: flex;
   align-items: center;
-  padding-left: 48.2%;
   justify-content: space-between;
+  padding-left: 48.2%;
 `;
 
 const Title = styled.h2`
@@ -53,7 +76,6 @@ const ResetButton = styled.button`
   font-weight: 700;
   padding: 0.5rem 1rem;
   background: ${({ theme }) => theme.colors.orange5};
-  border: none;
   border-radius: 10px;
   cursor: pointer;
 
@@ -62,29 +84,28 @@ const ResetButton = styled.button`
   }
 `;
 
-const RankingTable = styled.div`
-  display: flex;
-  flex-direction: column;
+const RankingTable = styled.table`
   width: 100%;
   background: ${({ theme }) => theme.colors.orange4};
-  border-radius: 10px;
   overflow: hidden;
 `;
 
-const TableRow = styled.div`
-  display: flex;
+const TableRow = styled.tr`
   width: 100%;
 `;
 
-const TableHeader = styled.div`
-  flex: 1;
+const TableHeader = styled.th`
   padding: 1rem;
   text-align: center;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.white1};
-  border-right: 1px solid ${({ theme }) => theme.colors.white1};
+  border: 1px solid ${({ theme }) => theme.colors.white1};
+`;
 
-  &:last-child {
-    border-right: none;
-  }
+const TableData = styled.td`
+  padding: 1rem;
+  text-align: center;
+  color: ${({ theme }) => theme.colors.white1};
+  border-right: 1px solid ${({ theme }) => theme.colors.white1};
+  border: 1px solid ${({ theme }) => theme.colors.white1};
 `;

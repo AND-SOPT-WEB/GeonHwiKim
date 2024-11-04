@@ -1,13 +1,8 @@
-export const saveGameDataToLocalStorage = (level, time) => {
-  const playTime = time;
+export const saveGameDataToLocalStorage = (level, playTime) => {
   const currentTime = new Date().toLocaleString();
+  const gameData = { currentTime, level, playTime };
 
-  localStorage.setItem(
-    "gameData",
-    JSON.stringify({
-      level,
-      playTime,
-      currentTime,
-    })
-  );
+  const existingData = JSON.parse(localStorage.getItem("gameData")) || [];
+
+  localStorage.setItem("gameData", JSON.stringify([...existingData, gameData]));
 };
