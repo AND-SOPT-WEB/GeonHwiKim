@@ -3,8 +3,9 @@ import RankingBoard from "../components/RankingBoard/RankingBoard";
 import styled from "styled-components";
 import { useState } from "react";
 import GameBoard from "../components/Home/GameBoard/GameBoard";
-import { getGameBoardProps } from "../utils/gameBoardUtils";
+import { getGameBoardProps } from "../utils/gameSelectLevel";
 import { useTimer } from "../hooks/useTimer";
+import { saveGameDataToLocalStorage } from "../utils/saveGameDataToLocalStorage";
 
 export const Home = () => {
   const [selected, setSelected] = useState("game");
@@ -18,6 +19,11 @@ export const Home = () => {
   const handleLevelChange = (newLevel) => {
     setLevel(newLevel);
     resetTimer();
+  };
+
+  const handleGameEnd = () => {
+    stopTimer();
+    saveGameDataToLocalStorage(level, formatTime(time));
   };
 
   return (
@@ -36,7 +42,7 @@ export const Home = () => {
             key={level}
             currentTime={formatTime(time)}
             onFirstClick={startTimer}
-            onLastClick={stopTimer}
+            onLastClick={handleGameEnd}
             onReset={resetTimer}
             {...getGameBoardProps(level)}
           />
