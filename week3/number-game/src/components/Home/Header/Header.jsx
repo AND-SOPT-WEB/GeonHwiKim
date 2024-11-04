@@ -1,6 +1,9 @@
 import styled from "styled-components";
+import ToggleButton from "./ToggleButton";
+import SelecteLevel from "./SelecteLevel";
+import TimerTime from "./TimerTime";
 
-const HomeHeader = ({ selected, onSelect, level, onLevelChange, time }) => {
+const Header = ({ selected, onSelect, level, onLevelChange, time }) => {
   return (
     <HomeHeaderWrapper>
       <HomeHeaderLeft>
@@ -22,24 +25,15 @@ const HomeHeader = ({ selected, onSelect, level, onLevelChange, time }) => {
       </HomeHeaderLeft>
       {selected === "game" && (
         <HomeHeaderRight>
-          <SelectedLevel>
-            <select
-              value={level}
-              onChange={(e) => onLevelChange(e.target.value)}
-            >
-              <option value="level1">level1</option>
-              <option value="level2">level2</option>
-              <option value="level3">level3</option>
-            </select>
-          </SelectedLevel>
-          <Time>{time}</Time>
+          <SelecteLevel level={level} onLevelChange={onLevelChange} />
+          <TimerTime time={time} />
         </HomeHeaderRight>
       )}
     </HomeHeaderWrapper>
   );
 };
 
-export default HomeHeader;
+export default Header;
 
 const HomeHeaderWrapper = styled.header`
   display: flex;
@@ -69,49 +63,9 @@ const ToggleWrapper = styled.div`
   gap: 1rem;
 `;
 
-const ToggleButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 10rem;
-  height: 5rem;
-  background: ${({ selected, theme }) =>
-    selected ? theme.colors.orange3 : "transparent"};
-  border: none;
-  padding: 1rem 2rem;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 3rem;
-  font-weight: 500;
-
-  &:hover {
-    background: ${({ selected, theme }) =>
-      selected ? theme.colors.orange3 : theme.colors.orange4};
-  }
-`;
-
 const HomeHeaderRight = styled.div`
   display: flex;
   width: 20rem;
   align-items: center;
   gap: 3rem;
-`;
-
-const SelectedLevel = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 3rem;
-  font-weight: 500;
-
-  select {
-    padding: 0.5rem;
-    font-size: 3rem;
-    font-weight: 500;
-    border-radius: 20px;
-    border: none;
-  }
-`;
-
-const Time = styled.p`
-  font-size: 3rem;
 `;

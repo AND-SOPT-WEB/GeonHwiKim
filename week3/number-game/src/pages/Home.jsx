@@ -1,4 +1,4 @@
-import HomeHeader from "../components/Home/HomeHeader";
+import HomeHeader from "../components/Home/Header/Header";
 import RankingBoard from "../components/RankingBoard/RankingBoard";
 import styled from "styled-components";
 import { useState } from "react";

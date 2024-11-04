@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled, { keyframes, css } from "styled-components";
 import CompleteModal from "../../Modal/CompleteModal";
+import NextNumber from "./NextNumber";
 
 const generateNumbers = (start, count) => {
   return Array.from({ length: count }, (_, i) => start + i);
@@ -83,8 +84,8 @@ const GameBoard = ({
   };
 
   return (
-    <GameContainer>
-      <NextNumber>다음 숫자: {currentNumber}</NextNumber>
+    <GameBoardContainer>
+      <NextNumber currentNumber={currentNumber} />
       <GameBox $gridLength={gridLength}>
         {initialNums.map((number, index) =>
           number !== null ? (
@@ -104,23 +105,17 @@ const GameBoard = ({
       {gameComplete && (
         <CompleteModal onClose={handleCloseModal} finalTime={currentTime} />
       )}
-    </GameContainer>
+    </GameBoardContainer>
   );
 };
 
 export default GameBoard;
 
-const GameContainer = styled.div`
+const GameBoardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`;
-
-const NextNumber = styled.div`
-  font-size: 3.5rem;
-  font-weight: 900;
-  color: ${({ theme }) => theme.colors.black1};
 `;
 
 const GameBox = styled.div`
