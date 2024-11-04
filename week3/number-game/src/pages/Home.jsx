@@ -3,22 +3,33 @@ import RankingBoard from "../components/RankingBoard/RankingBoard";
 import styled from "styled-components";
 import { useState } from "react";
 import GameBoard from "../components/Home/GameBoard/GameBoard";
+import { getGameBoardProps } from "../utils/gameBoardUtils";
 
 export const Home = () => {
   const [selected, setSelected] = useState("game");
+  const [level, setLevel] = useState("level1");
 
   const handleSelect = (selection) => {
     setSelected(selection);
   };
 
+  const handleLevelChange = (newLevel) => {
+    setLevel(newLevel);
+  };
+
+  const gameBoardProps = getGameBoardProps(level);
+
   return (
     <HomePageWrapper>
-      <HomeHeader selected={selected} onSelect={handleSelect} />
+      <HomeHeader
+        selected={selected}
+        onSelect={handleSelect}
+        level={level}
+        onLevelChange={handleLevelChange}
+      />
       <HomeBody>{selected === "ranking" && <RankingBoard />}</HomeBody>
       <HomeBody>
-        {selected === "game" && (
-          <GameBoard initialLength={16} remainingLength={16} gridLength={4} />
-        )}
+        {selected === "game" && <GameBoard key={level} {...gameBoardProps} />}
       </HomeBody>
     </HomePageWrapper>
   );

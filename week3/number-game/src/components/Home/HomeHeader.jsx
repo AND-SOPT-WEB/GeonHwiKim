@@ -1,9 +1,6 @@
 import styled from "styled-components";
-import { useState } from "react";
 
-const HomeHeader = ({ selected, onSelect }) => {
-  const [level, setLevel] = useState("Level1");
-
+const HomeHeader = ({ selected, onSelect, level, onLevelChange }) => {
   return (
     <HomeHeaderWrapper>
       <HomeHeaderLeft>
@@ -26,7 +23,10 @@ const HomeHeader = ({ selected, onSelect }) => {
       {selected === "game" && (
         <HomeHeaderRight>
           <SelectedLevel>
-            <select value={level} onChange={(e) => setLevel(e.target.value)}>
+            <select
+              value={level}
+              onChange={(e) => onLevelChange(e.target.value)}
+            >
               <option value="level1">level1</option>
               <option value="level2">level2</option>
               <option value="level3">level3</option>
