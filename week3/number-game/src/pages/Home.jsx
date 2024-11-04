@@ -27,7 +27,7 @@ export const Home = () => {
   };
 
   return (
-    <HomePageWrapper>
+    <>
       <HomeHeader
         selected={selected}
         onSelect={handleSelect}
@@ -35,9 +35,10 @@ export const Home = () => {
         onLevelChange={handleLevelChange}
         time={formatTime(time)}
       />
-      <HomeBody>{selected === "ranking" && <RankingBoard />}</HomeBody>
       <HomeBody>
-        {selected === "game" && (
+        {selected === "ranking" ? (
+          <RankingBoard />
+        ) : (
           <GameBoard
             key={level}
             currentTime={formatTime(time)}
@@ -48,22 +49,15 @@ export const Home = () => {
           />
         )}
       </HomeBody>
-    </HomePageWrapper>
+    </>
   );
 };
-
-const HomePageWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  height: 100vh;
-  background: ${({ theme }) => theme.colors.orange7};
-`;
 
 const HomeBody = styled.main`
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
-  padding: 2rem 0;
+  height: 100vh;
+  padding: 5rem 0;
+  background: ${({ theme }) => theme.colors.orange7};
 `;

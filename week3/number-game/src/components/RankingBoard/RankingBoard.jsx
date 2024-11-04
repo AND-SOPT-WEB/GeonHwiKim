@@ -63,7 +63,7 @@ const RankingHeader = styled.header`
 `;
 
 const Title = styled.h2`
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 700;
 `;
 
@@ -80,6 +80,7 @@ const TableRow = styled.tr`
 const TableHeader = styled.th`
   padding: 1rem;
   text-align: center;
+  font-size: 2rem;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.white1};
   border: 1px solid ${({ theme }) => theme.colors.white1};
@@ -87,6 +88,7 @@ const TableHeader = styled.th`
 
 const TableData = styled.td`
   padding: 1rem;
+  font-size: 1.5rem;
   text-align: center;
   color: ${({ theme }) => theme.colors.white1};
   border-right: 1px solid ${({ theme }) => theme.colors.white1};
