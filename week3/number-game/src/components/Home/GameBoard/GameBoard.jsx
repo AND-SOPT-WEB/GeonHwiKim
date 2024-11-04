@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import CompleteModal from "../../Modal/CompleteModal";
 
 const generateNumbers = (start, count) => {
   return Array.from({ length: count }, (_, i) => start + i);
@@ -24,6 +25,16 @@ const GameBoard = ({ initialLength, remainingLength, gridLength }) => {
   const [currentNumber, setCurrentNumber] = useState(1);
   const [gameComplete, setGameComplete] = useState(false);
   const [clickedIndexes, setClickedIndexes] = useState(new Set());
+
+  const resetGame = () => {
+    setInitialnums(generateShuffledNumbers(1, initialLength));
+    setUpcomingNums(
+      generateShuffledNumbers(initialLength + 1, remainingLength)
+    );
+    setCurrentNumber(1);
+    setGameComplete(false);
+    setClickedIndexes(new Set());
+  };
 
   const handleInitialNumClick = (index) => {
     const [next, ...rest] = upcomingNums;
@@ -52,6 +63,10 @@ const GameBoard = ({ initialLength, remainingLength, gridLength }) => {
     }
   };
 
+  const handleCloseModal = () => {
+    resetGame();
+  };
+
   return (
     <GameContainer>
       <NextNumber>다음 숫자: {currentNumber}</NextNumber>
@@ -71,6 +86,7 @@ const GameBoard = ({ initialLength, remainingLength, gridLength }) => {
           )
         )}
       </GameBox>
+      {gameComplete && <CompleteModal onClose={handleCloseModal} />}
     </GameContainer>
   );
 };
