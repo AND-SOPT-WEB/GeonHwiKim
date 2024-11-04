@@ -15,8 +15,8 @@ const colors = {
   gray2: "#5C5C5C",
   gray3: "#A6ABBC",
 
-  background: "#000000",
-  background_box: "#212121",
+  black1: "#000000",
+  black2: "#212121",
 
   article_box: "rgba(217, 217, 217, 0.10)",
   article_content: "rgba(119, 119, 119, 0.63)",

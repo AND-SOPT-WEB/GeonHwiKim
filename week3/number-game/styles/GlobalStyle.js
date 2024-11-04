@@ -1,9 +1,18 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+ @font-face {
+        font-family: 'establishRetrosansOTF';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/establishRetrosansOTF.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+    
+
+
     * {
     box-sizing: border-box;
-    font-family: 'NPSfontBold';
+    font-family: 'establishRetrosansOTF';
     }
 
     html,
