@@ -1,13 +1,10 @@
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 
-const CompleteModal = ({ onClose, finalTime }) => {
+const CompleteModal = ({ children }) => {
   return ReactDOM.createPortal(
     <Overlay>
-      <Modal>
-        <Message>게임 기록: {finalTime}</Message>
-        <CloseButton onClick={onClose}>닫기</CloseButton>
-      </Modal>
+      <Modal>{children}</Modal>
     </Overlay>,
     document.getElementById("modal-root")
   );
@@ -32,35 +29,11 @@ const Modal = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 10rem;
+  gap: 2rem;
   background-color: ${({ theme }) => theme.colors.orange3};
   padding: 2rem;
   border-radius: 10px;
   text-align: center;
   width: 50rem;
-  height: 30rem;
-`;
-
-const Message = styled.div`
-  font-size: 3rem;
-  font-weight: 700;
-  color: ${({ theme }) => theme.colors.black1};
-`;
-
-const CloseButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 10rem;
-  height: 5rem;
-  background-color: ${({ theme }) => theme.colors.black1};
-  color: ${({ theme }) => theme.colors.white1};
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.gray1};
-  }
+  height: auto;
 `;

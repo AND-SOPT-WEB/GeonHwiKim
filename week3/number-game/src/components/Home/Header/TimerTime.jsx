@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 const TimerTime = ({ time }) => {
-  return <StyledTime>{time}</StyledTime>;
+  return <TimerTimeContainer>{time}</TimerTimeContainer>;
 };
 
 export default TimerTime;
 
-const StyledTime = styled.p`
+const TimerTimeContainer = styled.p`
   font-size: 3rem;
 `;

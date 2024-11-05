@@ -24,7 +24,7 @@ const SelecteLevelContainer = styled.div`
     padding: 0.5rem;
     font-size: 3rem;
     font-weight: 500;
-    border-radius: 20px;
+    border-radius: 10px;
     border: none;
   }
 `;

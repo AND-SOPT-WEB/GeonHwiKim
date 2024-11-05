@@ -2,15 +2,15 @@ import styled from "styled-components";
 
 const ToggleButton = ({ selected, onClick, children }) => {
   return (
-    <StyledToggleButton selected={selected} onClick={onClick}>
+    <ToggleButtonContainer selected={selected} onClick={onClick}>
       {children}
-    </StyledToggleButton>
+    </ToggleButtonContainer>
   );
 };
 
 export default ToggleButton;
 
-const StyledToggleButton = styled.button`
+const ToggleButtonContainer = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;

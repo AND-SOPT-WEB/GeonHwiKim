@@ -2,19 +2,9 @@ import { useState } from "react";
 import styled, { keyframes, css } from "styled-components";
 import CompleteModal from "../../Modal/CompleteModal";
 import NextNumber from "./NextNumber";
-
-const generateNumbers = (start, count) => {
-  return Array.from({ length: count }, (_, i) => start + i);
-};
-
-const shuffleNumbers = (numbers) => {
-  return numbers.sort(() => Math.random() - 0.5);
-};
-
-const generateShuffledNumbers = (start, count) => {
-  const numbers = generateNumbers(start, count);
-  return shuffleNumbers(numbers);
-};
+import { generateShuffledNumbers } from "../../../utils/generateShuffledNumbers";
+import { resetGame } from "../../../utils/resetGame";
+import { handleNumberClick } from "../../../utils/handleNumberClick";
 
 const GameBoard = ({
   initialLength,
@@ -48,39 +38,33 @@ const GameBoard = ({
     setCurrentNumber((prev) => prev + 1);
   };
 
-  const resetGame = () => {
-    setInitialnums(generateShuffledNumbers(1, initialLength));
-    setUpcomingNums(
-      generateShuffledNumbers(initialLength + 1, remainingLength)
-    );
-    setCurrentNumber(1);
-    setGameComplete(false);
-    setClickedIndexes(new Set());
-    onReset();
+  const reset = () => {
+    resetGame(initialLength, remainingLength, {
+      setInitialnums,
+      setUpcomingNums,
+      setCurrentNumber,
+      setGameComplete,
+      setClickedIndexes,
+      onReset,
+    });
   };
 
-  const handleNumberClick = (number, index) => {
-    if (number !== currentNumber) return;
-
-    if (currentNumber === 1) {
-      onFirstClick();
-    }
-
-    if (currentNumber === initialLength + remainingLength) {
-      onLastClick();
-      setGameComplete(true);
-      return;
-    }
-
-    if (number <= initialLength) {
-      handleInitialNumClick(index);
-    } else {
-      handleUpcomingNumClick(index);
-    }
+  const handleClick = (number, index) => {
+    handleNumberClick({
+      number,
+      currentNumber,
+      initialLength,
+      remainingLength,
+      handleInitialNumClick: () => handleInitialNumClick(index),
+      handleUpcomingNumClick: () => handleUpcomingNumClick(index),
+      setGameComplete,
+      onFirstClick,
+      onLastClick,
+    });
   };
 
   const handleCloseModal = () => {
-    resetGame();
+    reset();
   };
 
   return (
@@ -91,7 +75,7 @@ const GameBoard = ({
           number !== null ? (
             <NumberButton
               key={index}
-              onClick={() => handleNumberClick(number, index)}
+              onClick={() => handleClick(number, index)}
               disabled={number < currentNumber}
               isClicked={clickedIndexes.has(index)}
             >
@@ -103,7 +87,10 @@ const GameBoard = ({
         )}
       </GameBox>
       {gameComplete && (
-        <CompleteModal onClose={handleCloseModal} finalTime={currentTime} />
+        <CompleteModal onClose={handleCloseModal}>
+          <Message>게임 기록: {currentTime}</Message>
+          <CloseButton onClick={handleCloseModal}>닫기</CloseButton>
+        </CompleteModal>
       )}
     </GameBoardContainer>
   );
@@ -153,4 +140,28 @@ const EmptySpace = styled.div`
   height: 10rem;
   background-color: transparent;
   visibility: hidden;
+`;
+
+const Message = styled.div`
+  font-size: 3rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.black1};
+`;
+
+const CloseButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10rem;
+  height: 5rem;
+  background-color: ${({ theme }) => theme.colors.black1};
+  color: ${({ theme }) => theme.colors.white1};
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray1};
+  }
 `;
