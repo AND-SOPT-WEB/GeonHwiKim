@@ -1,7 +1,11 @@
 import { Outlet } from "react-router-dom";
 
 const Roots = () => {
-  return <Outlet />;
+  return (
+    <>
+      <Outlet />
+    </>
+  );
 };
 
 export default Roots;
