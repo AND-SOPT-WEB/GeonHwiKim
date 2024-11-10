@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const SelecteLevel = ({ level, onLevelChange }) => {
+const SelectLevel = ({ level, onLevelChange }) => {
   return (
     <SelecteLevelContainer>
       <select value={level} onChange={(e) => onLevelChange(e.target.value)}>
@@ -12,7 +12,7 @@ const SelecteLevel = ({ level, onLevelChange }) => {
   );
 };
 
-export default SelecteLevel;
+export default SelectLevel;
 
 const SelecteLevelContainer = styled.div`
   display: flex;
