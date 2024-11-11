@@ -3,11 +3,19 @@ import styled from "styled-components";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+interface UpdateData {
+  hobby?: string;
+  password?: string;
+}
+
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState("hobby");
   const [hobby, setHobby] = useState<string | null>(null);
   const [userId, setUserId] = useState("");
   const [otherUserHobby, setOtherUserHobby] = useState<string | null>(null);
+  const [searchedUserId, setSearchedUserId] = useState<string | null>(null); // 검색된 사용자 ID 상태
+  const [newHobby, setNewHobby] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,12 +71,47 @@ const MyPage = () => {
 
       if (response.data.result?.hobby) {
         setOtherUserHobby(response.data.result.hobby);
+        setSearchedUserId(userId); // 검색된 사용자 ID를 설정
       } else {
         alert("해당 사용자의 취미 정보를 찾을 수 없습니다.");
       }
     } catch (error) {
       console.error("Failed to fetch other user's hobby:", error);
       alert("취미 정보를 가져오는 데 실패했습니다.");
+    }
+  };
+
+  const handleUpdate = async () => {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      navigate("/login");
+      return;
+    }
+
+    if (!newHobby && !newPassword) {
+      alert("변경할 비밀번호 또는 취미를 입력해주세요.");
+      return;
+    }
+
+    const updateData: UpdateData = {};
+    if (newHobby) updateData.hobby = newHobby;
+    if (newPassword) updateData.password = newPassword;
+
+    try {
+      await axios.put(`${import.meta.env.VITE_BASE_URL}/user`, updateData, {
+        headers: {
+          token: token,
+        },
+      });
+
+      alert("정보가 성공적으로 업데이트되었습니다.");
+      setHobby(newHobby || hobby);
+      setNewHobby("");
+      setNewPassword("");
+    } catch (error) {
+      console.error("Failed to update information:", error);
+      alert("정보를 업데이트하는 데 실패했습니다.");
     }
   };
 
@@ -117,9 +160,9 @@ const MyPage = () => {
                 onChange={(e) => setUserId(e.target.value)}
               />
               <SearchButton onClick={handleSearch}>검색</SearchButton>
-              {otherUserHobby && (
+              {searchedUserId && otherUserHobby && (
                 <OtherHobbyText>
-                  {userId}번 사용자의 취미: {otherUserHobby}
+                  {searchedUserId}번 사용자의 취미: {otherUserHobby}
                 </OtherHobbyText>
               )}
             </OtherHobbiesContainer>
@@ -129,10 +172,20 @@ const MyPage = () => {
             <SectionTitle>내 정보 수정하기</SectionTitle>
             <Form>
               <Label>새 비밀번호</Label>
-              <Input type="password" placeholder="새 비밀번호" />
+              <Input
+                type="password"
+                placeholder="새 비밀번호"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              />
               <Label>새 취미</Label>
-              <Input type="text" placeholder="새 취미" />
-              <SubmitButton>수정하기</SubmitButton>
+              <Input
+                type="text"
+                placeholder="새 취미"
+                value={newHobby}
+                onChange={(e) => setNewHobby(e.target.value)}
+              />
+              <SubmitButton onClick={handleUpdate}>수정하기</SubmitButton>
             </Form>
           </InfoSection>
         )}
