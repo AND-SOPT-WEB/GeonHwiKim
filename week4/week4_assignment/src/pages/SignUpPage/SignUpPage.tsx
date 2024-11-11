@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -8,7 +8,7 @@ import PasswordStep from "../../components/SignUpPage/PasswordStep";
 import HobbyStep from "../../components/SignUpPage/HobbyStep";
 import { SignUpResponse } from "../../types/SignUpResponse";
 
-const SignUpPage: React.FC = () => {
+const SignUpPage = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");

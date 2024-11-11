@@ -13,7 +13,7 @@ const MyPage = () => {
   const [hobby, setHobby] = useState<string | null>(null);
   const [userId, setUserId] = useState("");
   const [otherUserHobby, setOtherUserHobby] = useState<string | null>(null);
-  const [searchedUserId, setSearchedUserId] = useState<string | null>(null); // 검색된 사용자 ID 상태
+  const [searchedUserId, setSearchedUserId] = useState<string | null>(null);
   const [newHobby, setNewHobby] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const navigate = useNavigate();
@@ -71,7 +71,7 @@ const MyPage = () => {
 
       if (response.data.result?.hobby) {
         setOtherUserHobby(response.data.result.hobby);
-        setSearchedUserId(userId); // 검색된 사용자 ID를 설정
+        setSearchedUserId(userId);
       } else {
         alert("해당 사용자의 취미 정보를 찾을 수 없습니다.");
       }

@@ -7,7 +7,7 @@ interface NameStepProps {
   onNext: () => void;
 }
 
-const NameStep: React.FC<NameStepProps> = ({ name, setName, onNext }) => {
+const NameStep = ({ name, setName, onNext }: NameStepProps) => {
   const [nameError, setNameError] = useState("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

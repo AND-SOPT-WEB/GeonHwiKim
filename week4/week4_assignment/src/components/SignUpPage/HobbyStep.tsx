@@ -9,7 +9,7 @@ interface HobbyStepProps {
   onNext: () => Promise<SignUpResponse>;
 }
 
-const HobbyStep: React.FC<HobbyStepProps> = ({ hobby, setHobby, onNext }) => {
+const HobbyStep = ({ hobby, setHobby, onNext }: HobbyStepProps) => {
   const [hobbyError, setHobbyError] = useState("");
   const navigate = useNavigate();
 

@@ -9,13 +9,13 @@ interface PasswordStepProps {
   onNext: () => void;
 }
 
-const PasswordStep: React.FC<PasswordStepProps> = ({
+const PasswordStep = ({
   password,
   confirmPassword,
   setPassword,
   setConfirmPassword,
   onNext,
-}) => {
+}: PasswordStepProps) => {
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
