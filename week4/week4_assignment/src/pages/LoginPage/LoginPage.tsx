@@ -3,7 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
+const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -34,7 +34,7 @@ const Login = () => {
   };
 
   return (
-    <LoginContainer>
+    <LoginPageContainer>
       <Title>로그인</Title>
       <Input
         type="text"
@@ -51,13 +51,13 @@ const Login = () => {
       {error && <ErrorMessage>{error}</ErrorMessage>}
       <LoginButton onClick={handleLogin}>로그인</LoginButton>
       <SignupLink to="/signup">회원가입</SignupLink>
-    </LoginContainer>
+    </LoginPageContainer>
   );
 };
 
-export default Login;
+export default LoginPage;
 
-const LoginContainer = styled.div`
+const LoginPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
