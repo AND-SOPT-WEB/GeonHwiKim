@@ -6,9 +6,12 @@ const SignUpPage = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [hobby, setHobby] = useState("");
   const [showPasswordInputs, setShowPasswordInputs] = useState(false);
+  const [showHobbyInput, setShowHobbyInput] = useState(false);
   const [nameError, setNameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [hobbyError, setHobbyError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,8 +53,23 @@ const SignUpPage = () => {
     }
   };
 
+  const handleHobbyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setHobby(value);
+
+    if (value.length > 8) {
+      setHobbyError("취미는 8글자 이하로 입력해주세요");
+    } else {
+      setHobbyError("");
+    }
+  };
+
   const handleNextClick = () => {
-    setShowPasswordInputs(true);
+    if (!showPasswordInputs) {
+      setShowPasswordInputs(true);
+    } else {
+      setShowHobbyInput(true);
+    }
   };
 
   const toggleShowPassword = () => {
@@ -63,6 +81,8 @@ const SignUpPage = () => {
     !confirmPassword ||
     password !== confirmPassword ||
     password.length > 8;
+
+  const isSignUpButtonDisabled = !hobby || hobby.length > 8;
 
   return (
     <SignUpContainer>
@@ -85,7 +105,7 @@ const SignUpPage = () => {
               다음
             </NextButton>
           </>
-        ) : (
+        ) : !showHobbyInput ? (
           <>
             <Label>비밀번호</Label>
             <PasswordContainer>
@@ -109,7 +129,24 @@ const SignUpPage = () => {
               />
             </PasswordContainer>
             {passwordError && <ErrorMessage>{passwordError}</ErrorMessage>}
-            <NextButton disabled={isNextButtonDisabled}>다음</NextButton>
+            <NextButton
+              disabled={isNextButtonDisabled}
+              onClick={handleNextClick}
+            >
+              다음
+            </NextButton>
+          </>
+        ) : (
+          <>
+            <Label>취미</Label>
+            <Input
+              type="text"
+              placeholder="취미를 입력해주세요"
+              value={hobby}
+              onChange={handleHobbyChange}
+            />
+            {hobbyError && <ErrorMessage>{hobbyError}</ErrorMessage>}
+            <NextButton disabled={isSignUpButtonDisabled}>회원가입</NextButton>
           </>
         )}
       </Form>
@@ -167,13 +204,13 @@ const Input = styled.input`
 
 const ShowPasswordButton = styled.button`
   position: absolute;
-  top: 20%;
-  right: 2.5rem;
+  top: 50%;
+  right: 1rem;
   transform: translateY(-50%);
   background: transparent;
   border: none;
   cursor: pointer;
-  font-size: 2rem;
+  font-size: 1.5rem;
 `;
 
 const ErrorMessage = styled.span`
