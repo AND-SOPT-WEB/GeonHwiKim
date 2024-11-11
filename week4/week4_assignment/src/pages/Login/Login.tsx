@@ -25,7 +25,7 @@ const LoginContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 700;
 `;
 
@@ -34,7 +34,7 @@ const Input = styled.input`
   height: 4rem;
   padding: 1rem;
   border: 1px solid ${({ theme }) => theme.colors.gray3};
-  border-radius: 0.5rem;
+  border-radius: 0.5px;
   font-size: 2rem;
   outline: none;
 `;
