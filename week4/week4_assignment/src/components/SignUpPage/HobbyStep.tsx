@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { SignUpResponse } from "../../types/SignUpResponse";
 
 interface HobbyStepProps {
   hobby: string;
   setHobby: React.Dispatch<React.SetStateAction<string>>;
+  onNext: () => Promise<SignUpResponse>;
 }
 
-const HobbyStep: React.FC<HobbyStepProps> = ({ hobby, setHobby }) => {
+const HobbyStep: React.FC<HobbyStepProps> = ({ hobby, setHobby, onNext }) => {
   const [hobbyError, setHobbyError] = useState("");
   const navigate = useNavigate();
 
@@ -22,8 +24,18 @@ const HobbyStep: React.FC<HobbyStepProps> = ({ hobby, setHobby }) => {
     }
   };
 
-  const handleSignUpClick = () => {
-    navigate("/mypage");
+  const handleSignUpClick = async () => {
+    if (!hobbyError) {
+      try {
+        const data = await onNext();
+        console.log(data);
+        alert(`회원가입 성공! 회원번호: ${data.result.no}`);
+        navigate("/login");
+      } catch (error) {
+        console.error("Sign-up error:", error);
+        alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+      }
+    }
   };
 
   return (
@@ -48,7 +60,6 @@ const HobbyStep: React.FC<HobbyStepProps> = ({ hobby, setHobby }) => {
 
 export default HobbyStep;
 
-// 스타일 정의
 const Label = styled.label`
   font-size: 1.5rem;
   font-weight: 700;

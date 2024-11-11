@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import useFunnel from "../../hooks/useFunnel";
 import NameStep from "../../components/SignUpPage/NameStep";
 import PasswordStep from "../../components/SignUpPage/PasswordStep";
 import HobbyStep from "../../components/SignUpPage/HobbyStep";
+import { SignUpResponse } from "../../types/SignUpResponse";
 
 const SignUpPage: React.FC = () => {
   const [name, setName] = useState("");
@@ -12,6 +14,28 @@ const SignUpPage: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [hobby, setHobby] = useState("");
   const funnel = useFunnel(["name", "password", "hobby"]);
+
+  const onSubmit = async (): Promise<SignUpResponse> => {
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      throw new Error("Passwords do not match");
+    }
+
+    try {
+      const response = await axios.post<SignUpResponse>(
+        `${import.meta.env.VITE_BASE_URL}/user`,
+        {
+          username: name,
+          password: password,
+          hobby: hobby,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("There was an error creating the user:", error);
+      throw error;
+    }
+  };
 
   return (
     <SignUpContainer>
@@ -30,7 +54,7 @@ const SignUpPage: React.FC = () => {
           />
         )}
         {funnel.currentStep === "hobby" && (
-          <HobbyStep hobby={hobby} setHobby={setHobby} />
+          <HobbyStep hobby={hobby} setHobby={setHobby} onNext={onSubmit} />
         )}
       </Form>
       <LoginLink>
