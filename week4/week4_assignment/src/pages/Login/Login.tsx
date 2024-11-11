@@ -85,7 +85,7 @@ const LoginButton = styled.button`
   width: 30rem;
   height: 4.5rem;
   background: ${({ theme }) => theme.colors.gray2};
-  color: white;
+  color: ${({ theme }) => theme.colors.white1};
   border: none;
   border-radius: 5px;
   font-size: 2rem;
@@ -105,7 +105,7 @@ const SignupLink = styled(Link)`
 `;
 
 const ErrorMessage = styled.span`
-  color: red;
+  color: ${({ theme }) => theme.colors.orange1};
   font-size: 1.5rem;
   margin-top: 1rem;
 `;
