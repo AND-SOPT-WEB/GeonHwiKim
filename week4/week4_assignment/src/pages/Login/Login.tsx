@@ -49,6 +49,7 @@ const LoginButton = styled.button`
   font-size: 2rem;
   font-weight: 700;
   cursor: pointer;
+  transition: background 0.3s ease;
   &:hover {
     background: ${({ theme }) => theme.colors.gray1};
   }
