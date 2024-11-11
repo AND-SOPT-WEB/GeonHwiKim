@@ -1,8 +1,76 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState("hobby");
+  const [hobby, setHobby] = useState<string | null>(null);
+  const [userId, setUserId] = useState("");
+  const [otherUserHobby, setOtherUserHobby] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchHobby = async () => {
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        alert("로그인이 필요합니다.");
+        navigate("/login");
+        return;
+      }
+
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/user/my-hobby`,
+          {
+            headers: {
+              token: token,
+            },
+          }
+        );
+
+        if (response.data.result?.hobby) {
+          setHobby(response.data.result.hobby);
+        } else {
+          alert("취미 정보를 가져오는 데 실패했습니다.");
+        }
+      } catch (error) {
+        console.error("Failed to fetch hobby:", error);
+        alert("취미 정보를 가져오는 데 실패했습니다.");
+      }
+    };
+
+    fetchHobby();
+  }, [navigate]);
+
+  const handleSearch = async () => {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/user/${userId}/hobby`,
+        {
+          headers: {
+            token: token,
+          },
+        }
+      );
+
+      if (response.data.result?.hobby) {
+        setOtherUserHobby(response.data.result.hobby);
+      } else {
+        alert("해당 사용자의 취미 정보를 찾을 수 없습니다.");
+      }
+    } catch (error) {
+      console.error("Failed to fetch other user's hobby:", error);
+      alert("취미 정보를 가져오는 데 실패했습니다.");
+    }
+  };
 
   return (
     <MyPageContainer>
@@ -24,7 +92,14 @@ const MyPage = () => {
             </NavItem>
           </Nav>
         </HeaderRight>
-        <LogoutButton>로그아웃</LogoutButton>
+        <LogoutButton
+          onClick={() => {
+            localStorage.removeItem("authToken");
+            navigate("/login");
+          }}
+        >
+          로그아웃
+        </LogoutButton>
       </Header>
       <Content>
         {activeTab === "hobby" ? (
@@ -32,12 +107,21 @@ const MyPage = () => {
             <SectionTitle>취미</SectionTitle>
             <MyHobbyContainer>
               <SubTitle>나의 취미</SubTitle>
-              <HobbyText>독서</HobbyText>
+              <HobbyText>{hobby}</HobbyText>
             </MyHobbyContainer>
             <OtherHobbiesContainer>
               <SubTitle>다른 사람들의 취미</SubTitle>
-              <SearchInput placeholder="사용자 번호" />
-              <SearchButton>검색</SearchButton>
+              <SearchInput
+                placeholder="사용자 번호"
+                value={userId}
+                onChange={(e) => setUserId(e.target.value)}
+              />
+              <SearchButton onClick={handleSearch}>검색</SearchButton>
+              {otherUserHobby && (
+                <OtherHobbyText>
+                  {userId}번 사용자의 취미: {otherUserHobby}
+                </OtherHobbyText>
+              )}
             </OtherHobbiesContainer>
           </HobbySection>
         ) : (
@@ -179,6 +263,12 @@ const SearchButton = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.colors.gray2};
   }
+`;
+
+const OtherHobbyText = styled.p`
+  font-size: 1.5rem;
+  color: ${({ theme }) => theme.colors.gray2};
+  margin-top: 1rem;
 `;
 
 const InfoSection = styled.div`
